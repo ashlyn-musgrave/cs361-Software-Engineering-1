@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Livestock Transport - Trips</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Trips</h1>
+    </header>
+
+    <main>
+        <div class="card">
+            <h2>Trips Map</h2>
+            <p>Zoom in/out to explore routes across Texas.</p>
+            
+            <div class="map-frame">
+                <iframe
+                title="Texas map"
+                src="https://www.openstreetmap.org/export/embed.html?bbox=-106.65%2C25.84%2C-93.51%2C36.50&layer=mapnik&marker=30.2672%2C-97.7431"
+                loading="lazy"
+                referrerpolicy="no-referrer-when-downgrade">
+                </iframe>
+            </div>
+            
+            <p class="map-note">Centered near Austin. Use + / − on the map to zoom.</p>
+        </div>
+          
+
+      <div class="card">
+        <h2>Example Trip</h2>
+        <p>Status: Pending match • Destination: Waco, TX • Animals: Horses</p>
+      </div>
+    </main>
+
+    <nav>
+        <div class="nav-inner">
+          <a class="nav-link" href="index.html">
+            <span class="icon"></span>
+            Explore
+          </a>
+          <a class="nav-link active" href="trips.html">
+            <span class="icon trips"></span>
+            Trips
+          </a>
+          <a class="nav-link" href="profile.html">
+            <span class="icon profile"></span>
+            Profile
+          </a>
+        </div>
+      </nav>          
+  </div>
+</body>
+</html>

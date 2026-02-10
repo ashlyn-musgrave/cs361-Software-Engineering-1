@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Livestock Transport - Home</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app">
+    <header>
+      <h1>Explore</h1>
+    </header>
+
+    <main>
+      <div class="search-card">
+        <div class="search-row">
+          <div class="field">
+            <div class="label">Where</div>
+            <input class="input" id="whereInput" placeholder="Search Destinations" />
+          </div>
+
+          <div class="field">
+            <div class="label">When</div>
+            <input class="input" id="whenInput" type="date" />
+          </div>
+
+          <div class="field">
+            <div class="label">Who</div>
+            <select id="whoSelect">
+              <option value="">Select…</option>
+              <option>Cattle</option>
+              <option>Horses</option>
+              <option>Sheep/Goats</option>
+              <option>Pigs</option>
+              <option>Poultry</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="search-actions">
+          <button class="btn" id="searchBtn">Search</button>
+        </div>
+      </div>
+
+      <p class="tagline">
+        Getting your animals where they need to go.
+        <span>Match livestock needing transport with drivers headed the same way.</span>
+      </p>
+
+      <div class="logo">
+        <img src="livestock_trailer.png" alt="Livestock trailer logo" class="logo-img" />
+      </div>
+
+      <div class="card" id="resultsCard" style="display:none;">
+        <h2>Look who we’ve found…</h2>
+        <div id="resultsList" class="results-list"></div>
+      </div>      
+    </main>
+
+    <nav>
+        <div class="nav-inner">
+          <a class="nav-link active" href="index.html">
+            <span class="icon"></span>
+            Explore
+          </a>
+          <a class="nav-link" href="trips.html">
+            <span class="icon trips"></span>
+            Trips
+          </a>
+          <a class="nav-link" href="profile.html">
+            <span class="icon profile"></span>
+            Profile
+          </a>
+        </div>
+      </nav>          
+  </div>
+
+  <script>
+    const sampleTrips = [
+      { driver: "Kenneth Rule", origin: "Austin", destination: "Waco", date: "2026-02-15", animals: "Horses", rating: 4.3, reviews: 5 },
+      { driver: "Maizie Day", origin: "Austin", destination: "Dallas", date: "2026-02-18", animals: "Cattle", rating: 5.0, reviews: 24 },
+      { driver: "Jordan Vega", origin: "San Antonio", destination: "Austin", date: "2026-02-20", animals: "Sheep/Goats", rating: 4.7, reviews: 12 },
+      { driver: "Riley Chen", origin: "Houston", destination: "Waco", date: "2026-02-22", animals: "Poultry", rating: 4.4, reviews: 9 },
+      { driver: "Sam Patel", origin: "Austin", destination: "Houston", date: "2026-02-16", animals: "Horses", rating: 4.9, reviews: 31 }
+    ];
+  
+    const whereInput = document.getElementById("whereInput");
+    const whenInput = document.getElementById("whenInput");
+    const whoSelect = document.getElementById("whoSelect");
+    const searchBtn = document.getElementById("searchBtn");
+  
+    const resultsCard = document.getElementById("resultsCard");
+    const resultsList = document.getElementById("resultsList");
+  
+    function renderTrips(trips) {
+      resultsList.innerHTML = "";
+  
+      trips.forEach(t => {
+        const tile = document.createElement("div");
+        tile.className = "trip-tile";
+  
+        tile.innerHTML = `
+          <div class="trip-avatar">Profile<br/>Pic</div>
+          <div>
+            <p class="trip-name">${t.driver}</p>
+            <p class="trip-route">Route: ${t.origin} → ${t.destination}</p>
+            <div class="trip-rating">★ ${t.rating.toFixed(1)} <span>(${t.reviews})</span></div>
+          </div>
+        `;
+  
+        resultsList.appendChild(tile);
+      });
+    }
+  
+    searchBtn.addEventListener("click", () => {
+      const where = (whereInput.value || "").trim().toLowerCase();
+      const when = whenInput.value;
+      const who = whoSelect.value;
+  
+      const matches = sampleTrips.filter(t => {
+        const destMatch = !where || t.destination.toLowerCase().includes(where) || t.origin.toLowerCase().includes(where);
+        const dateMatch = !when || t.date === when;
+        const whoMatch  = !who || t.animals === who;
+        return destMatch && dateMatch && whoMatch;
+      });
+  
+      if (matches.length === 0) {
+        resultsList.innerHTML = `<p style="color: var(--muted); margin: 0;">
+          No trips matched. Try Austin, Dallas, Waco, Houston, or San Antonio.
+        </p>`;
+      } else {
+        renderTrips(matches);
+      }
+  
+      resultsCard.style.display = "block";
+    });
+  </script>
+  
+  
+</body>
+</html>
